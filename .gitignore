@@ -53,3 +53,14 @@ about_rv.cpp
 
 # Dear ImgGui generated
 imgui.ini
+
+# --- Local customization fork: build artifacts from per-VFX-platform builds ---
+# Upstream's "_install/*" only covers a directory named exactly "_install"; builds that
+# target a specific VFX platform use suffixed directories (_install_cy2025, ...).
+# Patterns below are root-anchored so they never shadow tracked files deeper in the tree
+# (e.g. src/plugins/rv-packages/additional_nodes/AdditionalNodes.zip).
+/_install*/
+/_codec_test*/
+/_tmp*/
+/*.zip
+/*.log

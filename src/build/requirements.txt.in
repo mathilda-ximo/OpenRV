@@ -23,5 +23,5 @@ certifi==2024.2.2       # License: Mozilla Public License 2.0 (MPL 2.0) (MPL-2.0
 six==1.16.0             # License: MIT License (MIT)
 packaging==24.0         # License: Apache Software License, BSD License
 requests==2.31.0        # License: Apache Software License (Apache 2.0)
-cryptography==42.0.5    # License: Apache Software License, BSD License ((Apache-2.0 OR BSD-3-Clause) AND PSF-2.0)
-pydantic==2.7.1         # License: MIT License (MIT)
+cryptography==44.0.2    # License: Apache Software License, BSD License ((Apache-2.0 OR BSD-3-Clause) AND PSF-2.0) - bumped from 42.0.5 for Python 3.13 (PyO3) support on CY2026
+pydantic==2.10.6        # License: MIT License (MIT) - bumped from 2.7.1 for Python 3.13 (PyO3) support on CY2026
