@@ -27,7 +27,7 @@
 上記4つの更新により、Qt 6.5.3の変更を伴わない範囲で、CY2025の依存関係をCY2026の固定バージョンまで引き上げています。
 
 - **NumPy を 1.26.4 に据え置いた理由**：CY2026は 2.3.0 を指定していますが、PySide6 6.5.3 の `build_scripts/utils.py:get_numpy_location()` は `numpy/core/include` をハードコードしています。NumPy 2.0 ではこのパスが `numpy/_core/include` へ変更されたため、shiboken6 で `fatal error C1083: Cannot open include file: 'numpy/arrayobject.h'` が発生します。PySide が 6.5.3 に留まる限り、NumPy 2.x への更新は回避する必要があります。
-- **Qt / PySide / Python を据え置いた理由**：Qt 6.8.3 では MuQt6 が破損します。Qt 6.8 で比較演算子がクラス外へ移動されたためです。これには単なるバージョン変更ではなく、本格的なソースコードの移植が必要となります。
+- **Qt / PySide / Python を据え置いた理由**：Qt 6.8.3 では MuQt6 のビルドが失敗します。Qt 6.8 で比較演算子がクラス外へ移動されたためです。これには単なるバージョン変更ではなく、本格的なソースコードの移植が必要となります。
 
 ## コーデックに関する設定
 
@@ -54,7 +54,7 @@
 
 ### 出典情報（Git Hash）に関するバグの修正
 
-`rv_git.cmake` は configure 実行ごとに `git rev-parse` を呼び出しますが、結果を `SET(... CACHE STRING ...)` で保存しており `FORCE` がありませんでした。CMake キャッシュは未定義時のみ書き込まれるため、ビルドディレクトリを最初に configure した時点のハッシュとブランチ名が固定されてしまいます。
+`rv_git.cmake` は configure 実行ごとに `git rev-parse` を呼び出しますが、結果を `SET(... CACHE STRING ...)` で保存しており `FORCE` がありませんでした。CMake キャッシュは未定義の場合にのみ書き込まれるため、ビルドディレクトリを最初に configure した時点のハッシュとブランチ名が固定されてしまいます。
 `rv_git.cmake` の該当箇所に `FORCE` を付与することで、常に正確なコミットハッシュがバイナリ起動バナーに反映されるよう修正しました。
 
 ## 動作検証
@@ -73,7 +73,7 @@ encoder prores: FOUND  encoder prores_ks: FOUND
 | H.264 `.mov` | エラーログなし |
 | HEVC `.mov` | エラーログなし |
 | ProRes 422 HQ `.mov` | エラーログなし |
-| OpenEXR `.exr` | 正常確認（`Read image info from test_exr.exr`） |
+| OpenEXR `.exr` | 正常に読み込み（`Read image info from test_exr.exr`） |
 
 `Unallowed codec` や `Unsupported codec`、`[error]` は出力されず、クラッシュダンプも生成されませんでした。
 
